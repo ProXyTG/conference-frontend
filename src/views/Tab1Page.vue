@@ -8,16 +8,51 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
+          <ion-title size="large">Conferences List</ion-title>
         </ion-toolbar>
       </ion-header>
-
-      <ExploreContainer name="Tab 1 page" />
+      <ConferenceCard
+        v-for="(item, i) in conferencesList" :key="i"
+        :conference="item"
+      />
     </ion-content>
   </ion-page>
 </template>
 
-<script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+<script lang="ts">
 </script>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+//Endpoints
+import { getConferences } from '@/api/conferenceApi'
+//Components
+import ConferenceCard from '@/components/ConferenceCard.vue'
+
+export default defineComponent({
+  components: {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    ConferenceCard,
+  },
+  data() {
+    return {
+      conferencesList: [] as Array<{ name: string; description: string; location: string; date: string }>
+    }
+  },
+  async created() {
+    await this.fetchConferences()
+  },
+  methods: {
+    async fetchConferences() {
+      const data = await getConferences()
+      this.conferencesList = data.data
+    }
+  }
+})
+</script>
+
