@@ -1,16 +1,16 @@
 <template>
-    <ion-page class="homePageWrapper">
-      <ion-content :fullscreen="true">
-        <div class="homePageContainer">
-          <ConferenceCard
-            v-for="(item, i) in conferencesList" :key="i"
-            :conference="item"
-          />
-        </div>
-      </ion-content>
-    </ion-page>
-  </template>
-  
+  <ion-page class="homePageWrapper">
+    <ion-content :fullscreen="true">
+      <div class="homePageContainer">
+        <ConferenceCard
+          v-for="(item, i) in conferencesList" :key="i"
+          :conference="item"
+        />
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { IonPage, IonContent } from '@ionic/vue';
