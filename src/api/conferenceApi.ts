@@ -7,5 +7,9 @@ export const conferenceApi = axios.create({
 });
 
 export const getConferences = () => {
-    return conferenceApi.get(`/api/getConferences`);
-  };
+  return conferenceApi.get(`/api/getConferences`);
+};
+
+export const getConferenceById = (id: string) => {
+  return conferenceApi.get(`/api/getConference/${id}`);
+};

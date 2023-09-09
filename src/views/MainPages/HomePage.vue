@@ -5,6 +5,7 @@
         <ConferenceCard
           v-for="(item, i) in conferencesList" :key="i"
           :conference="item"
+          @click="router.push(`/conference/details/${item._id}`)"
         />
       </div>
     </ion-content>
@@ -13,7 +14,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { IonPage, IonContent } from '@ionic/vue';
+  import { IonPage, IonContent, useIonRouter } from '@ionic/vue';
   //Interfaces & Enums
   import { ConferenceInterface } from '@/types/conference/interface'
   //Endpoints
@@ -31,6 +32,13 @@
     data() {
       return {
         conferencesList: [] as Array<ConferenceInterface>
+      }
+    },
+    setup() {
+      const router = useIonRouter()
+
+      return {
+        router
       }
     },
     async created() {
