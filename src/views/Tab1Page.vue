@@ -25,6 +25,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+//Interfaces & Enums
+import { ConferenceInterface } from '@/types/conference/interface'
 //Endpoints
 import { getConferences } from '@/api/conferenceApi'
 //Components
@@ -41,7 +43,7 @@ export default defineComponent({
   },
   data() {
     return {
-      conferencesList: [] as Array<{ name: string; description: string; location: string; date: string }>
+      conferencesList: [] as Array<ConferenceInterface>
     }
   },
   async created() {
@@ -49,8 +51,8 @@ export default defineComponent({
   },
   methods: {
     async fetchConferences() {
-      const data = await getConferences()
-      this.conferencesList = data.data
+      const data = await (await getConferences()).data
+      this.conferencesList = data as Array<ConferenceInterface>
     }
   }
 })
